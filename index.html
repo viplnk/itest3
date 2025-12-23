@@ -3,165 +3,1156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Your Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Premium Product | Order Now</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { padding: 20px; background-color: #f8f9fa; }
-        .product-img { max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px; }
-        .contact-info { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-top: 30px; }
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .header h1 {
+            color: var(--secondary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        @media (min-width: 992px) {
+            .product-card {
+                flex-direction: row;
+                min-height: 500px;
+            }
+        }
+        
+        /* Product Image */
+        .product-image {
+            flex: 1;
+            min-height: 350px;
+            background: linear-gradient(135deg, #e0f7ff 0%, #f8f0ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(67, 97, 238, 0.05);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(247, 37, 133, 0.05);
+            bottom: -80px;
+            left: -80px;
+        }
+        
+        #productImg {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        #productImg:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Product Details */
+        .product-details {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .product-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-price span {
+            font-size: 1.2rem;
+            color: #666;
+            margin-left: 10px;
+            font-weight: 400;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .features {
+            margin-bottom: 30px;
+        }
+        
+        .features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li i {
+            color: var(--success);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        /* Order Form */
+        .order-form-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-title i {
+            margin-right: 12px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fcfdfe;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+            outline: none;
+        }
+        
+        .form-control.error {
+            border-color: var(--accent);
+        }
+        
+        .error-message {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        /* Delivery Options */
+        .delivery-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            flex: 1;
+            min-width: 180px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .option-card:hover {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.03);
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.08);
+        }
+        
+        .option-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        
+        .whatsapp-option .option-icon {
+            color: #25D366;
+        }
+        
+        .telegram-option .option-icon {
+            color: #0088cc;
+        }
+        
+        .email-option .option-icon {
+            color: var(--accent);
+        }
+        
+        .option-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .option-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+        
+        .quantity-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            border: none;
+            background: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .quantity-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 25px;
+            min-width: 50px;
+            text-align: center;
+            color: var(--dark);
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 18px 35px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(67, 97, 238, 0.05);
+            transform: translateY(-3px);
+        }
+        
+        /* Contact Info */
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            font-size: 1.4rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes success {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: success 0.5s ease-out;
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        
+        .modal-content h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .modal-content p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .modal-close {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: var(--secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .product-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-price {
+                font-size: 2rem;
+            }
+            
+            .product-details {
+                padding: 25px;
+            }
+            
+            .order-form-container {
+                padding: 25px;
+            }
+            
+            .btn {
+                min-width: 100%;
+            }
+            
+            .delivery-options {
+                flex-direction: column;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Order Your Product</h1>
-
-        <!-- 🔹 EDIT THIS SECTION: PRODUCT DETAILS -->
-        <div class="row mb-5">
-            <div class="col-md-6">
-                <!-- Replace this src URL with your product image URL -->
-                <img src="https://via.placeholder.com/500x400" alt="Your Product" class="product-img">
+        <!-- Header -->
+        <div class="header">
+            <h1>Premium Product Store</h1>
+            <p>Order your exclusive product with simple steps. Fast delivery and premium quality guaranteed.</p>
+        </div>
+        
+        <!-- Product Section -->
+        <div class="product-card">
+            <div class="product-image">
+                <img id="productImg" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Premium Wireless Headphones">
             </div>
-            <div class="col-md-6">
-                <h2>Product Name</h2>
-                <!-- 🔹 Edit the description below -->
-                <p>This is a detailed description of your amazing product. Explain its features, benefits, and why customers should buy it. You can write as much as you want here.</p>
-                <h3 class="text-primary">Price: ₹999</h3> <!-- 🔹 Edit the price -->
-                <p><small class="text-muted">Inclusive of all taxes. Shipping calculated at checkout.</small></p>
+            
+            <div class="product-details">
+                <h2 class="product-title" id="productTitle">Premium Wireless Headphones</h2>
+                <div class="product-price">
+                    ₹4,999 <span>Inclusive of all taxes</span>
+                </div>
+                
+                <p class="product-description" id="productDescription">
+                    Experience immersive sound with our premium wireless headphones. Featuring noise cancellation, 30-hour battery life, and ultra-soft memory foam ear cushions for all-day comfort. Perfect for music lovers, travelers, and professionals.
+                </p>
+                
+                <ul class="features">
+                    <li><i class="fas fa-check-circle"></i> Active Noise Cancellation</li>
+                    <li><i class="fas fa-check-circle"></i> 30-Hour Battery Life</li>
+                    <li><i class="fas fa-check-circle"></i> Memory Foam Ear Cushions</li>
+                    <li><i class="fas fa-check-circle"></i> Built-in Voice Assistant</li>
+                    <li><i class="fas fa-check-circle"></i> Quick Charge (5 min = 3 hours)</li>
+                </ul>
             </div>
         </div>
-
-        <h3 class="mb-3">Place Your Order</h3>
-        <p>Fill in your details below. When you click "Review & Send Order", a message will be prepared for you to send.</p>
-
-        <!-- ORDER FORM -->
-        <form id="orderForm">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="name" class="form-label">Full Name *</label>
-                    <input type="text" class="form-control" id="name" required>
+        
+        <!-- Order Form -->
+        <div class="order-form-container">
+            <h2 class="form-title"><i class="fas fa-shopping-cart"></i> Order Details</h2>
+            
+            <form id="orderForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your full name">
+                        <div class="error-message" id="nameError">Please enter your name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your WhatsApp number">
+                        <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="contact" class="form-label">WhatsApp / Phone Number *</label>
-                    <input type="tel" class="form-control" id="contact" required>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email address">
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Delivery Address *</label>
+                    <textarea id="address" class="form-control" rows="3" placeholder="Enter your complete delivery address with pincode"></textarea>
+                    <div class="error-message" id="addressError">Please enter your delivery address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Additional Notes (Optional)</label>
+                    <textarea id="notes" class="form-control" rows="2" placeholder="Any special requests, color preferences, etc."></textarea>
+                </div>
+                
+                <!-- Quantity Selector -->
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <div class="quantity-selector">
+                        <button type="button" class="quantity-btn" id="decreaseQty">-</button>
+                        <div class="quantity-value" id="quantity">1</div>
+                        <button type="button" class="quantity-btn" id="increaseQty">+</button>
+                    </div>
+                </div>
+                
+                <!-- Delivery Method Selection -->
+                <div class="form-group">
+                    <label>Choose Delivery Method</label>
+                    <div class="delivery-options">
+                        <div class="option-card whatsapp-option selected" data-method="whatsapp">
+                            <div class="option-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="option-name">WhatsApp</div>
+                            <div class="option-desc">Fastest response, recommended</div>
+                        </div>
+                        
+                        <div class="option-card telegram-option" data-method="telegram">
+                            <div class="option-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="option-name">Telegram</div>
+                            <div class="option-desc">Secure and fast messaging</div>
+                        </div>
+                        
+                        <div class="option-card email-option" data-method="email">
+                            <div class="option-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="option-name">Email</div>
+                            <div class="option-desc">Formal communication</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="deliveryMethod" value="whatsapp">
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="form-group">
+                    <label>Order Summary</label>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Product Price (x<span id="summaryQty">1</span>):</span>
+                            <span id="summaryPrice">₹4,999</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Shipping:</span>
+                            <span>₹99</span>
+                        </div>
+                        <hr style="margin: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 700;">
+                            <span>Total Amount:</span>
+                            <span id="summaryTotal">₹5,098</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Send Order Now
+                    </button>
+                    
+                    <button type="button" class="btn btn-secondary" id="previewBtn">
+                        <i class="fas fa-eye"></i> Preview Message
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3>Need Help?</h3>
+            <p>Contact us directly for any questions or support</p>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>+91 86018 84884</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>shebu7@gmail.com</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Response Time: Within 30 minutes</span>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address *</label>
-                <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Full Delivery Address *</label>
-                <textarea class="form-control" id="address" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="notes" class="form-label">Order Notes (e.g., color, size, specific requests)</label>
-                <textarea class="form-control" id="notes" rows="2"></textarea>
-            </div>
-
-            <!-- 🔹 EDIT THIS SECTION: YOUR CONTACT INFO -->
-            <div class="contact-info mb-4">
-                <h5>Your Store Contact Info (Shown to Customer)</h5>
-                <p class="mb-1"><strong>Phone (WhatsApp):</strong> <span id="displayWhatsApp">+91 86018 84884</span></p> <!-- 🔹 Edit your number -->
-                <p class="mb-1"><strong>Email:</strong> <span id="displayEmail">shebu7@gmail.com</span></p> <!-- 🔹 Edit your email -->
-                <p class="mb-0"><small>Choose your preferred method below to send the order to us.</small></p>
-            </div>
-
-            <!-- DELIVERY METHOD SELECTION -->
-            <div class="mb-4">
-                <label class="form-label"><strong>Send Order Via: *</strong></label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sendMethod" id="whatsapp" value="whatsapp" checked>
-                    <label class="form-check-label" for="whatsapp">
-                        WhatsApp (Recommended)
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sendMethod" id="telegram" value="telegram">
-                    <label class="form-check-label" for="telegram">
-                        Telegram
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sendMethod" id="email" value="email">
-                    <label class="form-check-label" for="email">
-                        Email
-                    </label>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-lg w-100">
-                Review & Send Order
-            </button>
-            <p class="text-muted mt-2"><small>You will confirm the message before it is sent.</small></p>
-        </form>
-
-        <hr class="my-5">
-        <footer class="text-center text-muted">
-            <p>© 2025 Your Store Name. Simple Single Product Order Page.</p>
-        </footer>
+        </div>
     </div>
-
-    <!-- JavaScript to handle form submission -->
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Prepared Successfully!</h2>
+            <p id="modalMessage">Your order details have been prepared. You will now be redirected to send the order via WhatsApp.</p>
+            <p><strong>Please complete the order by sending the prepared message.</strong></p>
+            <button class="modal-close" id="closeModal">Close</button>
+        </div>
+    </div>
+    
     <script>
-        // 🔹 EDIT THIS: Your actual contact details (for the message)
-        const yourWhatsAppNumber = "9186018848844"; // Enter number without '+' or '00'[citation:1]
-        const yourTelegramUsername = "YourTelegramUsername"; // Enter your Telegram username (without @)
-        const yourEmailAddress = "shebu7@gmail.com";
-
-        // 🔹 Function to format the order message
-        function formatOrderMessage(customerData) {
-            return `*NEW ORDER REQUEST*%0A%0A` +
-                   `*Product:* Product Name%0A` + // 🔹 Edit product name if needed
-                   `*Price:* ₹999%0A%0A` + // 🔹 Edit price if needed
-                   `*Customer Details*%0A` +
-                   `Name: ${customerData.name}%0A` +
-                   `Contact: ${customerData.contact}%0A` +
-                   `Email: ${customerData.email}%0A` +
-                   `Address: ${customerData.address}%0A` +
-                   `Notes: ${customerData.notes || 'N/A'}%0A%0A` +
-                   `Please confirm the order and proceed with payment details.`;
+        // Configuration - EDIT THESE VALUES
+        const CONFIG = {
+            product: {
+                name: "Premium Wireless Headphones",
+                price: 4999,
+                basePrice: 4999,
+                shipping: 99,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "Experience immersive sound with our premium wireless headphones. Featuring noise cancellation, 30-hour battery life, and ultra-soft memory foam ear cushions for all-day comfort."
+            },
+            contact: {
+                whatsapp: "9186018848844", // No + sign
+                telegram: "shebu7", // Your Telegram username
+                email: "shebu7@gmail.com",
+                displayPhone: "+91 86018 84884",
+                displayEmail: "shebu7@gmail.com"
+            },
+            store: {
+                name: "Premium Product Store",
+                currency: "₹"
+            }
+        };
+        
+        // State Management
+        const state = {
+            quantity: 1,
+            deliveryMethod: "whatsapp",
+            isSubmitting: false,
+            totalPrice: CONFIG.product.basePrice + CONFIG.product.shipping
+        };
+        
+        // DOM Elements
+        const elements = {
+            productImg: document.getElementById('productImg'),
+            productTitle: document.getElementById('productTitle'),
+            productDescription: document.getElementById('productDescription'),
+            quantity: document.getElementById('quantity'),
+            summaryQty: document.getElementById('summaryQty'),
+            summaryPrice: document.getElementById('summaryPrice'),
+            summaryTotal: document.getElementById('summaryTotal'),
+            deliveryMethod: document.getElementById('deliveryMethod'),
+            decreaseQty: document.getElementById('decreaseQty'),
+            increaseQty: document.getElementById('increaseQty'),
+            orderForm: document.getElementById('orderForm'),
+            submitBtn: document.getElementById('submitBtn'),
+            previewBtn: document.getElementById('previewBtn'),
+            successModal: document.getElementById('successModal'),
+            closeModal: document.getElementById('closeModal'),
+            modalMessage: document.getElementById('modalMessage'),
+            optionCards: document.querySelectorAll('.option-card')
+        };
+        
+        // Initialize the page
+        function init() {
+            // Set initial values
+            updateProductDisplay();
+            updateOrderSummary();
+            
+            // Event Listeners
+            setupEventListeners();
+            
+            // Initialize delivery method selection
+            selectDeliveryMethod('whatsapp');
         }
-
-        // 🔹 Main function to handle form submission
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Stop the page from reloading
-
-            // 1. Get all customer data from the form
-            const customerData = {
-                name: document.getElementById('name').value,
-                contact: document.getElementById('contact').value,
-                email: document.getElementById('email').value,
-                address: document.getElementById('address').value,
-                notes: document.getElementById('notes').value
+        
+        // Update product information display
+        function updateProductDisplay() {
+            elements.productTitle.textContent = CONFIG.product.name;
+            elements.productDescription.textContent = CONFIG.product.description;
+            elements.productImg.src = CONFIG.product.image;
+            
+            // Add loading error handling for image
+            elements.productImg.onerror = function() {
+                this.src = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
             };
-
-            // 2. Get the chosen sending method
-            const sendMethod = document.querySelector('input[name="sendMethod"]:checked').value;
-            const messageText = formatOrderMessage(customerData);
-
-            let sendURL = '';
-
-            // 3. Create the correct link based on the chosen method[citation:1]
-            if (sendMethod === 'whatsapp') {
-                // Creates a link to open WhatsApp with a pre-filled message[citation:1]
-                sendURL = `https://wa.me/${yourWhatsAppNumber}?text=${messageText}`[citation:1];
-            } else if (sendMethod === 'telegram') {
-                // Creates a link to open Telegram and start a chat with you
-                sendURL = `https://t.me/${yourTelegramUsername}?text=${messageText}`;
-            } else if (sendMethod === 'email') {
-                // Creates a link to open the user's default email client
-                const emailSubject = `Order Request from ${customerData.name}`;
-                const emailBody = messageText.replace(/%0A/g, '\n'); // Replace URL codes with line breaks
-                sendURL = `mailto:${yourEmailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        }
+        
+        // Update order summary
+        function updateOrderSummary() {
+            const productTotal = CONFIG.product.price * state.quantity;
+            state.totalPrice = productTotal + CONFIG.product.shipping;
+            
+            elements.quantity.textContent = state.quantity;
+            elements.summaryQty.textContent = state.quantity;
+            elements.summaryPrice.textContent = `${CONFIG.store.currency}${productTotal.toLocaleString()}`;
+            elements.summaryTotal.textContent = `${CONFIG.store.currency}${state.totalPrice.toLocaleString()}`;
+        }
+        
+        // Setup all event listeners
+        function setupEventListeners() {
+            // Quantity buttons
+            elements.decreaseQty.addEventListener('click', () => changeQuantity(-1));
+            elements.increaseQty.addEventListener('click', () => changeQuantity(1));
+            
+            // Delivery method selection
+            elements.optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const method = this.getAttribute('data-method');
+                    selectDeliveryMethod(method);
+                });
+            });
+            
+            // Form submission
+            elements.orderForm.addEventListener('submit', handleFormSubmit);
+            
+            // Preview button
+            elements.previewBtn.addEventListener('click', previewOrderMessage);
+            
+            // Modal close button
+            elements.closeModal.addEventListener('click', () => {
+                elements.successModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            elements.successModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+            
+            // Input validation on blur
+            document.getElementById('name').addEventListener('blur', validateField);
+            document.getElementById('phone').addEventListener('blur', validateField);
+            document.getElementById('email').addEventListener('blur', validateField);
+            document.getElementById('address').addEventListener('blur', validateField);
+        }
+        
+        // Change quantity
+        function changeQuantity(change) {
+            const newQuantity = state.quantity + change;
+            if (newQuantity >= 1 && newQuantity <= 10) {
+                state.quantity = newQuantity;
+                updateOrderSummary();
+                
+                // Add animation effect
+                elements.quantity.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    elements.quantity.style.transform = 'scale(1)';
+                }, 200);
             }
-
-            // 4. Open the link in a new tab for the customer to send
-            if(sendURL) {
-                window.open(sendURL, '_blank');
+        }
+        
+        // Select delivery method
+        function selectDeliveryMethod(method) {
+            state.deliveryMethod = method;
+            elements.deliveryMethod.value = method;
+            
+            // Update UI
+            elements.optionCards.forEach(card => {
+                if (card.getAttribute('data-method') === method) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+        }
+        
+        // Validate a form field
+        function validateField(e) {
+            const field = e.target;
+            const errorElement = document.getElementById(field.id + 'Error');
+            let isValid = true;
+            
+            // Clear previous error
+            field.classList.remove('error');
+            errorElement.style.display = 'none';
+            
+            // Validate based on field type
+            if (field.value.trim() === '') {
+                showError(field, errorElement, 'This field is required');
+                isValid = false;
+            } else if (field.id === 'email' && !isValidEmail(field.value)) {
+                showError(field, errorElement, 'Please enter a valid email address');
+                isValid = false;
+            } else if (field.id === 'phone' && !isValidPhone(field.value)) {
+                showError(field, errorElement, 'Please enter a valid phone number');
+                isValid = false;
             }
-        });
+            
+            return isValid;
+        }
+        
+        // Show error on field
+        function showError(field, errorElement, message) {
+            field.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // Validate email format
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        // Validate phone format
+        function isValidPhone(phone) {
+            const re = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+            return re.test(String(phone));
+        }
+        
+        // Validate entire form
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate each required field
+            const requiredFields = ['name', 'phone', 'email', 'address'];
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId + 'Error');
+                
+                // Trigger validation
+                const event = new Event('blur');
+                field.dispatchEvent(event);
+                
+                // Check if field has error class
+                if (field.classList.contains('error')) {
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Format order message
+        function formatOrderMessage(formData) {
+            const productTotal = CONFIG.product.price * state.quantity;
+            const totalAmount = productTotal + CONFIG.product.shipping;
+            
+            return `*🛒 NEW ORDER REQUEST - ${CONFIG.store.name}*%0A%0A` +
+                   `*Product Details*%0A` +
+                   `📦 Product: ${CONFIG.product.name}%0A` +
+                   `💰 Unit Price: ${CONFIG.store.currency}${CONFIG.product.price}%0A` +
+                   `✖️ Quantity: ${state.quantity}%0A` +
+                   `📦 Shipping: ${CONFIG.store.currency}${CONFIG.product.shipping}%0A` +
+                   `✅ *Total Amount: ${CONFIG.store.currency}${totalAmount}*%0A%0A` +
+                   `*Customer Information*%0A` +
+                   `👤 Name: ${formData.name}%0A` +
+                   `📱 Phone: ${formData.phone}%0A` +
+                   `📧 Email: ${formData.email}%0A` +
+                   `🏠 Address: ${formData.address}%0A` +
+                   `📝 Notes: ${formData.notes || 'No additional notes'}%0A%0A` +
+                   `*Order Summary*%0A` +
+                   `Items: ${state.quantity} × ${CONFIG.store.currency}${CONFIG.product.price} = ${CONFIG.store.currency}${productTotal}%0A` +
+                   `Shipping: ${CONFIG.store.currency}${CONFIG.product.shipping}%0A` +
+                   `*GRAND TOTAL: ${CONFIG.store.currency}${totalAmount}*%0A%0A` +
+                   `_This order was generated from the ${CONFIG.store.name} website._`;
+        }
+        
+        // Create message URL based on delivery method
+        function createMessageURL(message, method) {
+            let url = '';
+            
+            switch(method) {
+                case 'whatsapp':
+                    url = `https://wa.me/${CONFIG.contact.whatsapp}?text=${message}`;
+                    break;
+                    
+                case 'telegram':
+                    url = `https://t.me/${CONFIG.contact.telegram}?text=${message}`;
+                    break;
+                    
+                case 'email':
+                    const subject = `Order Request: ${CONFIG.product.name} from ${document.getElementById('name').value}`;
+                    const body = decodeURIComponent(message.replace(/%0A/g, '\n').replace(/%20/g, ' '));
+                    url = `mailto:${CONFIG.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    break;
+            }
+            
+            return url;
+        }
+        
+        // Preview order message
+        function previewOrderMessage() {
+            if (!validateForm()) {
+                alert('Please fix errors in the form before previewing.');
+                return;
+            }
+            
+            const formData = getFormData();
+            const message = formatOrderMessage(formData);
+            
+            // Show message in alert for preview
+            const decodedMessage = decodeURIComponent(message.replace(/%0A/g, '\n').replace(/%20/g, ' '));
+            alert("PREVIEW OF ORDER MESSAGE:\n\n" + decodedMessage + "\n\nClick OK to continue.");
+        }
+        
+        // Get form data
+        function getFormData() {
+            return {
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                notes: document.getElementById('notes').value.trim()
+            };
+        }
+        
+        // Handle form submission
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Prevent double submission
+            if (state.isSubmitting) return;
+            
+            // Validate form
+            if (!validateForm()) {
+                alert('Please fix errors in the form before submitting.');
+                return;
+            }
+            
+            // Set submitting state
+            state.isSubmitting = true;
+            elements.submitBtn.innerHTML = '<div class="loading"></div> Processing...';
+            elements.submitBtn.disabled = true;
+            
+            // Simulate processing delay
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            // Get form data and format message
+            const formData = getFormData();
+            const message = formatOrderMessage(formData);
+            
+            // Create URL based on delivery method
+            const url = createMessageURL(message, state.deliveryMethod);
+            
+            // Update modal message based on method
+            let methodText = '';
+            switch(state.deliveryMethod) {
+                case 'whatsapp':
+                    methodText = 'WhatsApp';
+                    break;
+                case 'telegram':
+                    methodText = 'Telegram';
+                    break;
+                case 'email':
+                    methodText = 'Email';
+                    break;
+            }
+            
+            elements.modalMessage.textContent = `Your order details have been prepared. You will now be redirected to send the order via ${methodText}.`;
+            
+            // Show success modal
+            elements.successModal.style.display = 'flex';
+            
+            // Reset button state
+            elements.submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Order Now';
+            elements.submitBtn.disabled = false;
+            state.isSubmitting = false;
+            
+            // Open message URL after a short delay
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 1500);
+        }
+        
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // EDITING INSTRUCTIONS FOR THE USER
+        console.log(`
+        ============================================
+        HOW TO EDIT THIS PRODUCT PAGE:
+        ============================================
+        
+        1. PRODUCT INFORMATION:
+           - Find the CONFIG object in the JavaScript section (around line 470)
+           - Update: name, price, description, and image URL
+        
+        2. CONTACT DETAILS:
+           - In the same CONFIG object, update:
+             • whatsapp: "9186018848844" (your number without +)
+             • telegram: "YourUsername" (your Telegram username)
+             • email: "your-email@gmail.com"
+        
+        3. STORE INFORMATION:
+           - Update store.name and currency if needed
+        
+        4. PRODUCT IMAGE:
+           - Change the image URL in CONFIG.product.image
+           - Also change the default image in the HTML img tag
+        
+        5. STYLING:
+           - To change colors, edit the CSS variables in the :root section
+           - Primary color (blue): #4361ee
+           - Secondary color (purple): #3a0ca3
+           - Accent color (pink): #f72585
+        
+        ============================================
+        `);
     </script>
-    <!-- Optional Bootstrap JS for better form element behavior -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
