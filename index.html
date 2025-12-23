@@ -893,7 +893,7 @@
         // Change quantity
         function changeQuantity(change) {
             const newQuantity = state.quantity + change;
-            if (newQuantity >= 1 && newQuantity <= 10) {
+            if (newQuantity >= 1 && newQuantity <= 100) {
                 state.quantity = newQuantity;
                 updateOrderSummary();
                 
