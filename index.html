@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Your Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background-color: #f8f9fa; }
+        .product-img { max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px; }
+        .contact-info { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Order Your Product</h1>
+
+        <!-- 🔹 EDIT THIS SECTION: PRODUCT DETAILS -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <!-- Replace this src URL with your product image URL -->
+                <img src="https://via.placeholder.com/500x400" alt="Your Product" class="product-img">
+            </div>
+            <div class="col-md-6">
+                <h2>Product Name</h2>
+                <!-- 🔹 Edit the description below -->
+                <p>This is a detailed description of your amazing product. Explain its features, benefits, and why customers should buy it. You can write as much as you want here.</p>
+                <h3 class="text-primary">Price: ₹999</h3> <!-- 🔹 Edit the price -->
+                <p><small class="text-muted">Inclusive of all taxes. Shipping calculated at checkout.</small></p>
+            </div>
+        </div>
+
+        <h3 class="mb-3">Place Your Order</h3>
+        <p>Fill in your details below. When you click "Review & Send Order", a message will be prepared for you to send.</p>
+
+        <!-- ORDER FORM -->
+        <form id="orderForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contact" class="form-label">WhatsApp / Phone Number *</label>
+                    <input type="tel" class="form-control" id="contact" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Full Delivery Address *</label>
+                <textarea class="form-control" id="address" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="notes" class="form-label">Order Notes (e.g., color, size, specific requests)</label>
+                <textarea class="form-control" id="notes" rows="2"></textarea>
+            </div>
+
+            <!-- 🔹 EDIT THIS SECTION: YOUR CONTACT INFO -->
+            <div class="contact-info mb-4">
+                <h5>Your Store Contact Info (Shown to Customer)</h5>
+                <p class="mb-1"><strong>Phone (WhatsApp):</strong> <span id="displayWhatsApp">+91 86018 84884</span></p> <!-- 🔹 Edit your number -->
+                <p class="mb-1"><strong>Email:</strong> <span id="displayEmail">shebu7@gmail.com</span></p> <!-- 🔹 Edit your email -->
+                <p class="mb-0"><small>Choose your preferred method below to send the order to us.</small></p>
+            </div>
+
+            <!-- DELIVERY METHOD SELECTION -->
+            <div class="mb-4">
+                <label class="form-label"><strong>Send Order Via: *</strong></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sendMethod" id="whatsapp" value="whatsapp" checked>
+                    <label class="form-check-label" for="whatsapp">
+                        WhatsApp (Recommended)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sendMethod" id="telegram" value="telegram">
+                    <label class="form-check-label" for="telegram">
+                        Telegram
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sendMethod" id="email" value="email">
+                    <label class="form-check-label" for="email">
+                        Email
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg w-100">
+                Review & Send Order
+            </button>
+            <p class="text-muted mt-2"><small>You will confirm the message before it is sent.</small></p>
+        </form>
+
+        <hr class="my-5">
+        <footer class="text-center text-muted">
+            <p>© 2025 Your Store Name. Simple Single Product Order Page.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
+        // 🔹 EDIT THIS: Your actual contact details (for the message)
+        const yourWhatsAppNumber = "9186018848844"; // Enter number without '+' or '00'[citation:1]
+        const yourTelegramUsername = "YourTelegramUsername"; // Enter your Telegram username (without @)
+        const yourEmailAddress = "shebu7@gmail.com";
+
+        // 🔹 Function to format the order message
+        function formatOrderMessage(customerData) {
+            return `*NEW ORDER REQUEST*%0A%0A` +
+                   `*Product:* Product Name%0A` + // 🔹 Edit product name if needed
+                   `*Price:* ₹999%0A%0A` + // 🔹 Edit price if needed
+                   `*Customer Details*%0A` +
+                   `Name: ${customerData.name}%0A` +
+                   `Contact: ${customerData.contact}%0A` +
+                   `Email: ${customerData.email}%0A` +
+                   `Address: ${customerData.address}%0A` +
+                   `Notes: ${customerData.notes || 'N/A'}%0A%0A` +
+                   `Please confirm the order and proceed with payment details.`;
+        }
+
+        // 🔹 Main function to handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop the page from reloading
+
+            // 1. Get all customer data from the form
+            const customerData = {
+                name: document.getElementById('name').value,
+                contact: document.getElementById('contact').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                notes: document.getElementById('notes').value
+            };
+
+            // 2. Get the chosen sending method
+            const sendMethod = document.querySelector('input[name="sendMethod"]:checked').value;
+            const messageText = formatOrderMessage(customerData);
+
+            let sendURL = '';
+
+            // 3. Create the correct link based on the chosen method[citation:1]
+            if (sendMethod === 'whatsapp') {
+                // Creates a link to open WhatsApp with a pre-filled message[citation:1]
+                sendURL = `https://wa.me/${yourWhatsAppNumber}?text=${messageText}`[citation:1];
+            } else if (sendMethod === 'telegram') {
+                // Creates a link to open Telegram and start a chat with you
+                sendURL = `https://t.me/${yourTelegramUsername}?text=${messageText}`;
+            } else if (sendMethod === 'email') {
+                // Creates a link to open the user's default email client
+                const emailSubject = `Order Request from ${customerData.name}`;
+                const emailBody = messageText.replace(/%0A/g, '\n'); // Replace URL codes with line breaks
+                sendURL = `mailto:${yourEmailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            }
+
+            // 4. Open the link in a new tab for the customer to send
+            if(sendURL) {
+                window.open(sendURL, '_blank');
+            }
+        });
+    </script>
+    <!-- Optional Bootstrap JS for better form element behavior -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
